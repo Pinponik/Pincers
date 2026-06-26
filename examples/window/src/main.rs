@@ -13,7 +13,6 @@ struct App {
 impl ApplicationHandler for App {
     fn resumed(&mut self, event_loop: &ActiveEventLoop) {
         if self.window.is_none() {
-            // Tworzymy okno
             let window_attributes = Window::default_attributes()
                 .with_title("My first Winit window")
                 .with_inner_size(winit::dpi::LogicalSize::new(800.0, 600.0));
