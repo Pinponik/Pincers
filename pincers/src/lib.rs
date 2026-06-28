@@ -25,7 +25,7 @@ type Vect<T, const N: usize = 0> = Vec<T>;
 /// A simple button widget with a fixed‑size label.
 pub struct Button {
     pub label: Str<32>,
-    // Additional fields (position, size, callback, etc.) can be added here.
+    // More fields will be added later
 }
 
 impl Button {
