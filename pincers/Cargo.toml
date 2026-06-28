@@ -14,6 +14,7 @@ license = "MIT OR Apache-2.0"
 heapless = { version = "0.9.3", optional = true }
 winit = "0.30.13"
 pincers-macros = { path = "pincers-macros" }
+num = "0.1.43"
 
 [features]
 default = []
