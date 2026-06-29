@@ -48,3 +48,4 @@ jobs:
         run: |
           echo "DCO verification failed. Check the robot's comment in the Pull Request."
           exit 1
+          
