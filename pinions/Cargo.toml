@@ -1,10 +1,10 @@
 [package]
-name = "pincers"
+name = "pinions"
 authors = ["Pinponik"]
 version = "0.0.0"
 edition = "2021"
-description = "A fast and easy-to-use GUI library"
-repository = "https://github.com/Pinponik/Pincers"
+description = "A fast and easy-to-use GUI library running on microcontrolleres"
+repository = "https://github.com/Pinponik/Pinions"
 rust-version = "1.71"
 keywords = ["gui", "ui", "graphics", "interface", "widgets"]
 categories = ["gui", "ui", "graphics", "interface", "widgets"]
@@ -13,7 +13,7 @@ license = "MIT OR Apache-2.0"
 [dependencies]
 heapless = { version = "0.9.3", optional = true }
 winit = "0.30.13"
-pincers-macros = { path = "pincers-macros" }
+pinions-macros = { path = "pinions-macros" }
 num = "0.1.43"
 
 [features]

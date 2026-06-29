@@ -1,5 +1,5 @@
 [workspace]
-members = ["pincers", "pincers/pincers-macros", "examples/window"]
+members = ["pinions", "pinions/pinions-macros", "examples/window"]
 resolver = "2"
 
 

@@ -3,7 +3,7 @@ use quote::quote;
 use syn::{parse_macro_input, Expr, ExprMethodCall, ExprPath, Stmt, Token};
 
 #[proc_macro]
-pub fn pincers(input: TokenStream) -> TokenStream {
+pub fn pinions(input: TokenStream) -> TokenStream {
     let block = parse_macro_input!(input as syn::Block);
     // Collect widget descriptions: (type_name, vec[(field_ident, expr)])
     let mut widgets: Vec<(syn::Ident, Vec<(syn::Ident, syn::Expr)>)> = Vec::new();
@@ -105,7 +105,7 @@ pub fn pincers(input: TokenStream) -> TokenStream {
 
     // Generate the const MAIN_WINDOW using the builder
     let mut build_stmts = Vec::new();
-    build_stmts.push(quote! { let mut win = PincersWindow::new(); });
+    build_stmts.push(quote! { let mut win = PinionsWindow::new(); });
 
     for (ty, fields) in &widgets {
         let struct_name = ty;
@@ -147,11 +147,11 @@ pub fn pincers(input: TokenStream) -> TokenStream {
             #(#enum_variants),*
         }
 
-        struct PincersWindow {
+        struct PinionsWindow {
             vec: Vec<Widget>,
         }
 
-        impl PincersWindow {
+        impl PinionsWindow {
             fn new() -> Self {
                 Self { vec: Vec::new() }
             }
@@ -164,7 +164,7 @@ pub fn pincers(input: TokenStream) -> TokenStream {
             }
         }
 
-        const MAIN_WINDOW: PincersWindow = {
+        const MAIN_WINDOW: PinionsWindow = {
             #(#build_stmts)*
         };
     };

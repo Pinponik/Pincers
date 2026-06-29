@@ -954,17 +954,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a89322df9ebe1c1578d689c92318e070967d1042b512afbe49518723f4e6d5cd"
 
 [[package]]
-name = "pincers"
+name = "pinions"
 version = "0.0.0"
 dependencies = [
  "heapless",
  "num",
- "pincers-macros",
+ "pinions-macros",
  "winit",
 ]
 
 [[package]]
-name = "pincers-macros"
+name = "pinions-macros"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",
@@ -1675,7 +1675,7 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 name = "window"
 version = "0.1.0"
 dependencies = [
- "pincers",
+ "pinions",
  "winit",
 ]
 

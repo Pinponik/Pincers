@@ -2,7 +2,7 @@
 #[cfg(feature = "no_std")]
 pub use heapless;
 use num::Num;
-pub use pincers_macros;
+pub use pinions_macros;
 pub use winit;
 use winit::{
     application::ApplicationHandler,
