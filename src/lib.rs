@@ -1,9 +1,21 @@
+//!                          ____  _       _
+//!                         / __ \(_)___  (_)___  ____  _____
+//!                        / /_/ / / __ \/ / __ \/ __ \/ ___/
+//!                       / ____/ / / / / / /_/ / / / (__  )
+//!                      /_/   /_/_/ /_/_/\____/_/ /_/____/
+//!
+//!           A fast and easy-to-use GUI library running on microcontrolleres
+
+#[cfg(feature = "no_std")]
+use core::fmt::{Debug, Write};
 #[cfg_attr(feature = "no_std", no_std)]
 #[cfg(feature = "no_std")]
 pub use heapless;
-use num::Num;
+pub use num;
+pub use num::Num;
 pub use pinions_macros;
-use std::fmt::Debug;
+#[cfg(not(feature = "no_std"))]
+use std::fmt::{Debug, Write};
 use std::sync::{Arc, Mutex};
 use std::time::Instant;
 pub use winit;
@@ -124,11 +136,13 @@ pub struct Win<
     I: Num,         // icon type      | <- for struct Wid
     const S: usize, // icon size    -/
 > {
-    window: Option<Window>,
-    title: Str<T>,
-    poll: bool,
-    events: Arc<Mutex<Vect<Event, E>>>,
-    widgets: Vect<Wid<L, I, S, E>, V>,
+    pub window: Option<Window>,
+    pub title: Str<T>,
+    pub count: u32,
+    pub poll: bool,
+    pub needs_redraw: bool,
+    pub events: Arc<Mutex<Vect<Event, E>>>,
+    pub widgets: Vect<Wid<L, I, S, E>, V>,
 }
 
 impl<const T: usize, const E: usize, const V: usize, const L: usize, I: Num, const S: usize>
@@ -138,7 +152,9 @@ impl<const T: usize, const E: usize, const V: usize, const L: usize, I: Num, con
         Self {
             window: None,
             title: Str::<T>::new(),
+            count: 0,
             poll: false,
+            needs_redraw: false,
             events: Arc::new(Mutex::new(Vect::<Event, E>::new())),
             widgets: Vect::<Wid<L, I, S, E>, V>::new(),
         }
@@ -194,6 +210,16 @@ impl<const T: usize, const E: usize, const V: usize, const L: usize, I: Num, con
                     for widget in self.widgets.iter_mut() {
                         widget.mouse.pressed = pressed;
                     }
+                    if pressed {
+                        // Increment counter and update the first widget's label
+                        self.count = self.count.wrapping_add(1);
+                        if let Some(widget) = self.widgets.get_mut(0) {
+                            widget.label.clear();
+                            let _ = write!(widget.label, "{}", self.count);
+                        }
+                        // Request a redraw
+                        self.needs_redraw = true;
+                    }
                 }
             }
             winit::event::WindowEvent::CloseRequested => {
@@ -209,6 +235,13 @@ impl<const T: usize, const E: usize, const V: usize, const L: usize, I: Num, con
             if let Some(window) = &self.window {
                 window.request_redraw();
             }
+        }
+        // Redraw if needed
+        if self.needs_redraw {
+            if let Some(window) = &self.window {
+                window.request_redraw();
+            }
+            self.needs_redraw = false;
         }
     }
 }

@@ -1,3 +1,4 @@
+/*
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, Expr, ExprMethodCall, ExprPath, Stmt, Token};
@@ -229,3 +230,4 @@ fn infer_type(expr: Expr) -> proc_macro2::TokenStream {
         _ => quote! { String },
     }
 }
+*/
